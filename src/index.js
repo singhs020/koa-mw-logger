@@ -1,11 +1,6 @@
 const {createLogger} = require("bunyan");
 
-function getMw(config = {}) {
-  const opts = getOpts(config);
-  const logger = createLogger(opts);
-
-  return createMW(logger)
-}
+const createMw = require("./middleware");
 
 function getOpts(config) {
   const opts = {};
@@ -13,6 +8,13 @@ function getOpts(config) {
   opts.name = config.name || "logger";
 
   return opts;
+}
+
+function getMw(config = {}) {
+  const opts = getOpts(config);
+  const logger = createLogger(opts);
+
+  return createMw(logger);
 }
 
 module.exports = getMw;
