@@ -10,7 +10,12 @@
     "type": "git",
     "url": "git+https://github.com/simranjeet2589/koa-mw-logger.git"
   },
-  "keywords": ["Koa", "logger", "middleware", "bunyan"],
+  "keywords": [
+    "Koa",
+    "logger",
+    "middleware",
+    "bunyan"
+  ],
   "author": "Simranjeet Singh",
   "license": "MIT",
   "bugs": {
@@ -18,6 +23,7 @@
   },
   "homepage": "https://github.com/simranjeet2589/koa-mw-logger#readme",
   "dependencies": {
-    "bunyan": "^1.8.12"
+    "bunyan": "^1.8.12",
+    "uuid": "^3.3.3"
   }
 }
