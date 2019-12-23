@@ -2,7 +2,7 @@
   "name": "koa-mw-logger",
   "version": "1.0.0",
   "description": "Koa middleware for logging",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -10,9 +10,9 @@
     "type": "git",
     "url": "git+https://github.com/simranjeet2589/koa-mw-logger.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": ["Koa", "logger", "middleware", "bunyan"],
+  "author": "Simranjeet Singh",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/simranjeet2589/koa-mw-logger/issues"
   },
