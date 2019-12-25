@@ -10,3 +10,6 @@ const app = Koa();
 
 app.use(getLogger());
 ```
+
+## Config
+There is an option to pass in the config as per the following structure to define some properties of logger.
