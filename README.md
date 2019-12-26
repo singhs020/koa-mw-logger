@@ -16,6 +16,14 @@ const app = Koa();
 app.use(getLogger());
 ```
 
+to use it in a handler
+```
+async function handler(ctx, next) {
+  const logger = ctx.logger;
+  logger.info({"message": "logging something"});
+}
+```
+
 ## Config
 There is an option to pass in the config as per the following structure to define some properties of logger.
 
