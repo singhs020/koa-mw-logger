@@ -4,7 +4,12 @@ function generateReqId() {
   return uuid();
 }
 
-function wrapObj(obj) {
+function wrapObj(obj = {}) {
+  if (Array.isArray(obj) || typeof obj !== "object") {
+    return {
+      "message": "the passed value is not an object"
+    };
+  }
   return Object.assign({}, {reqId}, obj);
 }
 
