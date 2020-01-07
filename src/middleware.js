@@ -13,6 +13,7 @@ function wrapObj(obj = {}) {
   return Object.assign({}, {reqId}, obj);
 }
 
+
 function getLogger(logger, reqId) {
   const info = (obj) => logger.info(wrapObj(obj, reqId)); 
   const debug = (obj) => logger.debug(wrapObj(obj, reqId)); 
@@ -36,6 +37,16 @@ function logCompletion(logger, reqInfo) {
   logger.info(obj);
 }
 
+function getReqLog(req) {
+  return {
+    "url": req.href,
+    "method": req.method,
+    "query": req.query || {},
+    "type": req.type,
+    "ip": req.ip
+  };
+}
+
 function createMiddleware(logger) {
   return async(ctx, next) => {
     const reqId = generateReqId();
@@ -43,7 +54,8 @@ function createMiddleware(logger) {
     ctx.logger = loggerObj;
     ctx.reqInfo = {
       "start": new Date().toUTCString(),
-      "reqId": reqId
+      "reqId": reqId,
+      "request": getReqLog(ctx.request)
     };
 
     await next();
