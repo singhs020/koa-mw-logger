@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/simranjeetsingh001/koa-mw-logger.git"
+    "url": "git+https://github.com/singhs020/koa-mw-logger.git"
   },
   "keywords": [
     "Koa",
@@ -19,9 +19,9 @@
   "author": "Simranjeet Singh",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/simranjeetsingh001/koa-mw-logger/issues"
+    "url": "https://github.com/singhs020/koa-mw-logger/issues"
   },
-  "homepage": "https://github.com/simranjeetsingh001/koa-mw-logger#readme",
+  "homepage": "https://github.com/singhs020/koa-mw-logger#readme",
   "dependencies": {
     "bunyan": "^1.8.12",
     "uuid": "^3.3.3"
