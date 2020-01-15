@@ -40,3 +40,6 @@ const app = Koa();
 
 app.use(getLogger(config));
 ```
+
+## Support or Contact
+Having trouble with koa-mw-logger or have any questions? Please raise an issue.
