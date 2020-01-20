@@ -1,4 +1,7 @@
 # koa-mw-logger
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/singhs020/koa-mw-logger.svg)](https://greenkeeper.io/)
+
 Koa middleware for logging
 
 ## What it does
