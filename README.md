@@ -2,6 +2,8 @@
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/singhs020/koa-mw-logger.svg)](https://greenkeeper.io/)
 
+[![NPM](https://nodei.co/npm/koa-mw-logger.png?downloads=true)](https://www.npmjs.com/package/koa-mw-logger/)
+
 Koa middleware for logging
 
 ## What it does
