@@ -4,7 +4,7 @@ function generateReqId() {
   return uuid();
 }
 
-function wrapObj(data = {}) {
+function wrapObj(reqId, data = {}) {
   if (Array.isArray(data) || typeof data !== "object") {
     return {
       "message": "the data must be an object"
@@ -15,9 +15,9 @@ function wrapObj(data = {}) {
 
 
 function getLogger(logger, reqId) {
-  const info = (obj) => logger.info(wrapObj(obj, reqId)); 
-  const debug = (obj) => logger.debug(wrapObj(obj, reqId)); 
-  const error = (obj) => logger.error(wrapObj(obj, reqId)); 
+  const info = (obj) => logger.info(wrapObj(reqId, obj)); 
+  const debug = (obj) => logger.debug(wrapObj(reqId, obj)); 
+  const error = (obj) => logger.error(wrapObj(reqId, obj)); 
 
   return {
     info,
