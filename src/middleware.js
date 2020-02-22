@@ -62,7 +62,7 @@ function createMiddleware(logger) {
 
     await next();
 
-    return next().then(() => logCompletion(loggerObj, ctx.reqInfo));
+    return logCompletion(loggerObj, ctx.reqInfo);
   };
 }
 
