@@ -31,7 +31,9 @@ function logCompletion(logger, reqInfo) {
   const obj = {
     "start": reqInfo.start,
     "end": endTime,
-    "taken": (new Date(endTime) - new Date(reqInfo.start))
+    "taken": (new Date(endTime) - new Date(reqInfo.start)),
+    "reqId": reqInfo.reqId,
+    "request": reqInfo.request
   };
 
   logger.info(obj);
