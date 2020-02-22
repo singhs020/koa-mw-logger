@@ -24,6 +24,8 @@
   "homepage": "https://github.com/singhs020/koa-mw-logger#readme",
   "dependencies": {
     "bunyan": "^1.8.12",
+    "chai": "^4.2.0",
+    "mocha": "^7.0.1",
     "uuid": "^3.3.3"
   },
   "devDependencies": {
