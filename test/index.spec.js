@@ -6,7 +6,7 @@ const config = {
   "name": "foo"
 };
 
-describe("The middleware", () => {
+describe("The index", () => {
   describe("when config is passed", () => {
     it("should return a async function", () => {
       const mw = getLoggerMw(config);

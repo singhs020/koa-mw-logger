@@ -3,7 +3,7 @@ const eslint = require("gulp-eslint");
 const shell = require("gulp-shell");
 
 function lint() {
-  return src(["src/**/*.js"])
+  return src(["src/**/*.js", "test/**/*.spec.js"])
   .pipe(eslint())
   .pipe(eslint.format())
   .pipe(eslint.failAfterError());
