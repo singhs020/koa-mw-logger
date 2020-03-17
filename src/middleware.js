@@ -1,4 +1,4 @@
-const uuid = require("uuid/v4");
+const {"v4": uuid} = require("uuid");
 
 function generateReqId() {
   return uuid();
@@ -12,7 +12,6 @@ function wrapObj(reqId, data = {}) {
   }
   return Object.assign({}, {reqId}, data);
 }
-
 
 function getLogger(logger, reqId) {
   const info = (obj) => logger.info(wrapObj(reqId, obj)); 
@@ -33,7 +32,8 @@ function logCompletion(logger, reqInfo) {
     "end": endTime,
     "taken": (new Date(endTime) - new Date(reqInfo.start)),
     "reqId": reqInfo.reqId,
-    "request": reqInfo.request
+    "request": reqInfo.request,
+    "response": reqInfo.response
   };
 
   logger.info(obj);
@@ -46,6 +46,13 @@ function getReqLog(req) {
     "query": req.query || {},
     "type": req.type,
     "ip": req.ip
+  };
+}
+
+function getResLog(res) {
+  return {
+    "status": res.status,
+    "message": res.message
   };
 }
 
@@ -62,7 +69,10 @@ function createMiddleware(logger) {
 
     await next();
 
-    return logCompletion(loggerObj, ctx.reqInfo);
+    // Add response properties
+    const info = Object.assign({}, ctx.reqInfo, {"response": getResLog(ctx.response)});
+
+    return logCompletion(loggerObj, info);
   };
 }
 

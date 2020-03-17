@@ -6,7 +6,7 @@ proxyquire.noCallThru();
 proxyquire.noPreserveCache();
 
 const createLoggerMw = proxyquire("../src/middleware", {
-  "uuid/v4": stub().returns("foo:bar")
+  "uuid": {"v4": stub().returns("foo:bar")}
 });
 
 const logger = {
@@ -21,8 +21,13 @@ const request = {
   "type": "test",
   "ip": "ipTest"
 };
+const response = {
+  "status": 200,
+  "message": "OK"
+};
 const ctx = {
-  "request": request 
+  "request": request,
+  "response": response
 };
 const clock = useFakeTimers();
 
@@ -50,6 +55,10 @@ describe("The middleware", () => {
           "query": {},
           "type": request.type,
           "url": request.href
+        },
+        "response": {
+          "status": response.status,
+          "message": response.message
         },
         "start": new Date().toUTCString(),
         "taken": 0
