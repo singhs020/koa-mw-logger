@@ -10,6 +10,9 @@
     "type": "git",
     "url": "git+https://github.com/singhs020/koa-mw-logger.git"
   },
+  "files": [
+    "src"
+  ],
   "keywords": [
     "Koa",
     "logger",
