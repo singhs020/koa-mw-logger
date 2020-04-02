@@ -37,7 +37,6 @@ const Koa = require("koa");
 const getLogger = require("koa-mw-logger");
 
 const config = {
-  "level": "error",
   "name": "test"
 };
 
