@@ -25,7 +25,7 @@ function getLogger(logger, reqId) {
   };
 }
 
-function logCompletion(logger, reqInfo) {
+function logCompletion(logger, reqInfo, isError = false) {
   const endTime = new Date().toUTCString();
   const obj = {
     "start": reqInfo.start,
@@ -33,10 +33,11 @@ function logCompletion(logger, reqInfo) {
     "taken": (new Date(endTime) - new Date(reqInfo.start)),
     "reqId": reqInfo.reqId,
     "request": reqInfo.request,
-    "response": reqInfo.response
+    "response": reqInfo.response,
+    "error": reqInfo.error || {}
   };
 
-  logger.info(obj);
+  isError === true? logger.error(obj) : logger.info(obj);
 }
 
 function getReqLog(req) {
@@ -60,6 +61,8 @@ function createMiddleware(logger) {
   return async(ctx, next) => {
     const reqId = generateReqId();
     const loggerObj = getLogger(logger, reqId);
+    let isError = false;
+
     ctx.logger = loggerObj;
     ctx.reqInfo = {
       "start": new Date().toUTCString(),
@@ -67,12 +70,21 @@ function createMiddleware(logger) {
       "request": getReqLog(ctx.request)
     };
 
-    await next();
-
-    // Add response properties
-    const info = Object.assign({}, ctx.reqInfo, {"response": getResLog(ctx.response)});
-
-    return logCompletion(loggerObj, info);
+    try {  
+      await next();
+    } catch(err) {
+      isError = true;
+      ctx.status = 500;
+      ctx.message = "Internal Server Error";
+      ctx.reqInfo.error = {
+        "type": err.constructor.name,
+        "message": err.message,
+        "stack": err.stack
+      };
+    } finally {
+      const info = Object.assign({}, ctx.reqInfo, {"response": getResLog(ctx.response)});
+      logCompletion(loggerObj, info, isError);
+    }
   };
 }
 

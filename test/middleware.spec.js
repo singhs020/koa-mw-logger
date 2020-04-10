@@ -15,6 +15,7 @@ const logger = {
 };
 const mw = createLoggerMw(logger);
 const next = stub().resolves();
+const nextError = stub().rejects({"message": "Test"});
 const request = {
   "href": "foo",
   "method": "Get",
@@ -49,6 +50,42 @@ describe("The middleware", () => {
       expect(logger.info.firstCall.args[0]).to.deep.equal({
         "end": new Date().toUTCString(),
         "reqId": "foo:bar",
+        "error": {},
+        "request": {
+          "ip": request.ip,
+          "method": request.method,
+          "query": {},
+          "type": request.type,
+          "url": request.href
+        },
+        "response": {
+          "status": response.status,
+          "message": response.message
+        },
+        "start": new Date().toUTCString(),
+        "taken": 0
+      });
+    });
+  });
+
+  describe("when there is an error in the request", () => {
+    before(async() => {
+      await mw(ctx, nextError);
+    });
+
+    it("should attach a logger with ctx", () => {
+      expect(ctx.logger).to.be.exist;
+    });
+
+    it("should log well transformed object on request compeletion", () => {
+      expect(logger.error.firstCall.args[0]).to.deep.equal({
+        "end": new Date().toUTCString(),
+        "reqId": "foo:bar",
+        "error": {
+           "message": "Test",
+           "stack": undefined,
+           "type": "Object",
+        },
         "request": {
           "ip": request.ip,
           "method": request.method,
