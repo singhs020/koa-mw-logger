@@ -16,8 +16,7 @@
   "keywords": [
     "Koa",
     "logger",
-    "middleware",
-    "bunyan"
+    "middleware"
   ],
   "author": "Simranjeet Singh",
   "license": "MIT",
