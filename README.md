@@ -1,6 +1,6 @@
 # koa-mw-logger
 
-![Travis badge](https://travis-ci.org/singhs020/koa-mw-logger.svg?branch=master) [![Greenkeeper badge](https://badges.greenkeeper.io/singhs020/koa-mw-logger.svg)](https://greenkeeper.io/)
+![Travis badge](https://travis-ci.org/singhs020/koa-mw-logger.svg?branch=master) 
 
 [![NPM](https://nodei.co/npm/koa-mw-logger.png?downloads=true)](https://www.npmjs.com/package/koa-mw-logger/)
 
