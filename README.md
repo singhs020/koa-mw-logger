@@ -1,6 +1,6 @@
 # koa-mw-logger
 
-![Travis badge](https://travis-ci.org/singhs020/koa-mw-logger.svg?branch=master) 
+![Travis badge](https://travis-ci.org/singhs020/koa-mw-logger.svg?branch=master) [![Known Vulnerabilities](https://snyk.io/test/github/singhs020/koa-mw-logger/badge.svg)](https://snyk.io/test/github/singhs020/koa-mw-logger)
 
 [![NPM](https://nodei.co/npm/koa-mw-logger.png?downloads=true)](https://www.npmjs.com/package/koa-mw-logger/)
 
