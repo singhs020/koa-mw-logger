@@ -2,4 +2,4 @@ interface IConfig {
   name?: string;
 }
 
-export default function getLogger(config?: IConfig) : Function;
+export default function getLogger(config?: IConfig) : any;
