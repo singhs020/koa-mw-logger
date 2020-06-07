@@ -16,7 +16,7 @@ function wrapObj(reqId, data = {}) {
 function getLogger(logger, reqId) {
   const info = (obj) => logger.info(wrapObj(reqId, obj)); 
   const debug = (obj) => logger.debug(wrapObj(reqId, obj)); 
-  const error = (obj) => logger.error(wrapObj(reqId, obj)); 
+  const error = (obj) => logger.error(wrapObj(reqId, obj));
 
   return {
     info,
@@ -34,19 +34,20 @@ function logCompletion(logger, reqInfo, isError = false) {
     "reqId": reqInfo.reqId,
     "request": reqInfo.request,
     "response": reqInfo.response,
-    "error": reqInfo.error || {}
+    "error": reqInfo.error || {},
+    "customCtx": reqInfo.customCtx
   };
 
   isError === true? logger.error(obj) : logger.info(obj);
 }
 
-function getReqLog(req) {
+function getReqLog(req, mwOpts) {
   return {
     "url": req.href,
     "method": req.method,
     "query": req.query || {},
     "type": req.type,
-    "ip": req.ip
+    "ip": mwOpts.recordIp === true ? req.ip : "Ip recording is not enabled"
   };
 }
 
@@ -57,7 +58,7 @@ function getResLog(res) {
   };
 }
 
-function createMiddleware(logger) {
+function createMiddleware(logger, mwOpts = {}) {
   return async(ctx, next) => {
     const reqId = generateReqId();
     const loggerObj = getLogger(logger, reqId);
@@ -67,8 +68,23 @@ function createMiddleware(logger) {
     ctx.reqInfo = {
       "start": new Date().toUTCString(),
       "reqId": reqId,
-      "request": getReqLog(ctx.request)
+      "request": getReqLog(ctx.request, mwOpts),
+      "customCtx": {}
     };
+    ctx.addCustomCtx = (obj) => {
+      if (Array.isArray(obj) || typeof obj !== "object") {
+        ctx.reqInfo.customCtx = {
+          ...ctx.reqInfo.customCtx,
+          "message": "cannot append ctx as it is not an object"
+        };
+        return;
+      }
+
+      ctx.reqInfo.customCtx = {
+        ...ctx.reqInfo.customCtx,
+        ...obj
+      };
+    }
 
     try {  
       await next();
