@@ -52,7 +52,7 @@ describe("The middleware", () => {
         "reqId": "foo:bar",
         "error": {},
         "request": {
-          "ip": request.ip,
+          "ip": "Ip recording is not enabled",
           "method": request.method,
           "query": {},
           "type": request.type,
@@ -63,7 +63,8 @@ describe("The middleware", () => {
           "message": response.message
         },
         "start": new Date().toUTCString(),
-        "taken": 0
+        "taken": 0,
+        "customCtx": {}
       });
     });
   });
@@ -87,7 +88,7 @@ describe("The middleware", () => {
            "type": "Object",
         },
         "request": {
-          "ip": request.ip,
+          "ip": "Ip recording is not enabled",
           "method": request.method,
           "query": {},
           "type": request.type,
@@ -98,7 +99,8 @@ describe("The middleware", () => {
           "message": response.message
         },
         "start": new Date().toUTCString(),
-        "taken": 0
+        "taken": 0,
+        "customCtx": {}
       });
     });
   });
