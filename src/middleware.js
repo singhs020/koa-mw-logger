@@ -71,11 +71,11 @@ function createMiddleware(logger, mwOpts = {}) {
       "request": getReqLog(ctx.request, mwOpts),
       "customCtx": {}
     };
-    ctx.addCustomCtx = (obj) => {
+    ctx.addCustomLogCtx = (obj) => {
       if (Array.isArray(obj) || typeof obj !== "object") {
         ctx.reqInfo.customCtx = {
           ...ctx.reqInfo.customCtx,
-          "message": "cannot append ctx as it is not an object"
+          "message": "cannot append custom context from one of the calls as it is not an object"
         };
         return;
       }

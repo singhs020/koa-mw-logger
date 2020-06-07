@@ -73,6 +73,44 @@ describe("The Middleware", () => {
         });
       });
     });
+
+    describe("when the request is complete and customCtx was attached to the request", () => {
+      before(async() => {
+        logger.info.resetHistory();
+        logger.error.resetHistory();
+        const next = () => Promise.resolve()
+        .then(() => {
+          ctx.addCustomLogCtx({"custom": true});
+          ctx.addCustomLogCtx("custom");
+        });
+        await mw(ctx, next);
+      });
+  
+      it("should log well transformed object on request compeletion", () => {
+        expect(logger.info.firstCall.args[0]).to.deep.equal({
+          "end": new Date().toUTCString(),
+          "reqId": "foo:bar",
+          "error": {},
+          "request": {
+            "ip": "Ip recording is not enabled",
+            "method": request.method,
+            "query": {},
+            "type": request.type,
+            "url": request.href
+          },
+          "response": {
+            "status": response.status,
+            "message": response.message
+          },
+          "start": new Date().toUTCString(),
+          "taken": 0,
+          "customCtx": {
+            "custom": true,
+            "message": "cannot append custom context from one of the calls as it is not an object"
+          }
+        });
+      });
+    });
   
     describe("when there is an error in the request", () => {
       before(async() => {
