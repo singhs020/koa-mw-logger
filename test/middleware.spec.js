@@ -21,13 +21,15 @@ const request = {
   "href": "foo",
   "method": "Get",
   "type": "test",
-  "ip": "ipTest"
+  "ip": "ipTest",
+  "headers": {}
 };
 const response = {
   "status": 200,
   "message": "OK"
 };
 const ctx = {
+  "headers": request.headers,
   "request": request,
   "response": response
 };

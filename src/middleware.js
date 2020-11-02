@@ -1,7 +1,7 @@
 const {"v4": uuid} = require("uuid");
 
-function generateReqId() {
-  return uuid();
+function getReqId(headers) {
+  return headers["x-request-id"] || headers["x-amzn-RequestId"] || headers["requestId"] || uuid();
 }
 
 function wrapObj(reqId, data = {}) {
@@ -75,7 +75,7 @@ function addCustomLogCtx(ctx, obj) {
 
 function createMiddleware(logger, mwOpts = {}) {
   return async(ctx, next) => {
-    const reqId = generateReqId();
+    const reqId = getReqId(ctx.headers);
     const loggerObj = getLogger(logger, reqId);
     let isError = false;
 
