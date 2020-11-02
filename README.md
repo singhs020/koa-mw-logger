@@ -7,7 +7,7 @@
 Koa middleware for logging
 
 ## What it does
-- Every time a request is received, a request id will be generated and attached to the ctx.
+- Every time a request is received, a request id will forwarded or generated and attached to the ctx. It reds the following header keys for re-using the request id: *x-request-id*, *x-amzn-RequestId* and *requestId*.
 - At the completion of the request, it will log the completion of the request with some useful information.
 - It will also attach a logger instance at the ctx. It can be used to log the objects. Every call to the logging the object will be appended by the request id generated during the start of the request.
 - Appends a function called addCustomLogCtx to add additional info to the final log statement.
