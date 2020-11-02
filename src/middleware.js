@@ -58,6 +58,21 @@ function getResLog(res) {
   };
 }
 
+function addCustomLogCtx(ctx, obj) {
+  if (Array.isArray(obj) || typeof obj !== "object") {
+    ctx.reqInfo.customCtx = {
+      ...ctx.reqInfo.customCtx,
+      "message": "cannot append custom context from one of the calls as it is not an object"
+    };
+    return;
+  }
+
+  ctx.reqInfo.customCtx = {
+    ...ctx.reqInfo.customCtx,
+    ...obj
+  };
+}
+
 function createMiddleware(logger, mwOpts = {}) {
   return async(ctx, next) => {
     const reqId = generateReqId();
@@ -71,23 +86,15 @@ function createMiddleware(logger, mwOpts = {}) {
       "request": getReqLog(ctx.request, mwOpts),
       "customCtx": {}
     };
-    ctx.addCustomLogCtx = (obj) => {
-      if (Array.isArray(obj) || typeof obj !== "object") {
-        ctx.reqInfo.customCtx = {
-          ...ctx.reqInfo.customCtx,
-          "message": "cannot append custom context from one of the calls as it is not an object"
-        };
-        return;
-      }
-
-      ctx.reqInfo.customCtx = {
-        ...ctx.reqInfo.customCtx,
-        ...obj
-      };
-    }
+    ctx.addCustomLogCtx = (obj) => addCustomLogCtx(ctx, obj);
 
     try {  
       await next();
+
+      // add error details if request is a bad request (HTTP Status 400)
+      if (ctx.status === 400) {
+        ctx.reqInfo.error = ctx.body;
+      }
     } catch(err) {
       isError = true;
       ctx.status = 500;
