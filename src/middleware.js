@@ -41,13 +41,22 @@ function logCompletion(logger, reqInfo, isError = false) {
   isError === true? logger.error(obj) : logger.info(obj);
 }
 
+function obfuscateHeaders(headers = {}) {
+  if(headers.authorization) {
+    return Object.assign({}, headers, {"authorization": "OBFUSCATE"});
+  }
+
+  return headers;
+}
+
 function getReqLog(req, mwOpts) {
   return {
     "url": req.href,
     "method": req.method,
     "query": req.query || {},
     "type": req.type,
-    "ip": mwOpts.recordIp === true ? req.ip : "Ip recording is not enabled"
+    "ip": mwOpts.recordIp === true ? req.ip : "Ip recording is not enabled",
+    "headers": obfuscateHeaders(req.headers)
   };
 }
 
