@@ -44,6 +44,7 @@ There is an option to pass in the config as per the following structure to defin
 {
   "name": "foo", // name of the logger
   "recordIp": false // whether to extract and record ip from the request object or not. Default value is false.
+  "recordHeaders": false // whether to extract and record request headers from the request object or not. Default value is false It will also obfuscate some headers from logging them.
 }
 
 ```
