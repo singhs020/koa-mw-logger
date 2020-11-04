@@ -63,7 +63,8 @@ describe("The Middleware", () => {
             "method": request.method,
             "query": {},
             "type": request.type,
-            "url": request.href
+            "url": request.href,
+            "headers": {}
           },
           "response": {
             "status": response.status,
@@ -98,7 +99,8 @@ describe("The Middleware", () => {
             "method": request.method,
             "query": {},
             "type": request.type,
-            "url": request.href
+            "url": request.href,
+            "headers": {}
           },
           "response": {
             "status": response.status,
@@ -139,7 +141,8 @@ describe("The Middleware", () => {
             "method": request.method,
             "query": {},
             "type": request.type,
-            "url": request.href
+            "url": request.href,
+            "headers": {}
           },
           "response": {
             "status": response.status,
@@ -206,7 +209,51 @@ describe("The Middleware", () => {
             "method": request.method,
             "query": {},
             "type": request.type,
-            "url": request.href
+            "url": request.href,
+            "headers": {}
+          },
+          "response": {
+            "status": response.status,
+            "message": response.message
+          },
+          "start": new Date().toUTCString(),
+          "taken": 0,
+          "customCtx": {}
+        });
+      });
+    });
+
+    describe("when the request has authorization header", () => {
+      before(async() => {
+        logger.info.resetHistory();
+        logger.error.resetHistory();
+        ctx.request.headers = {
+          "authorization": "foo:bar"
+        };
+        await mwWithOpts(ctx, next);
+      });
+
+      after(async() => {
+        logger.info.resetHistory();
+        logger.error.resetHistory();
+        ctx.request.headers = {};
+        await mwWithOpts(ctx, next);
+      });
+  
+      it("should log well transformed object on request compeletion", () => {
+        expect(logger.info.firstCall.args[0]).to.deep.equal({
+          "end": new Date().toUTCString(),
+          "reqId": "foo:bar",
+          "error": {},
+          "request": {
+            "ip": request.ip,
+            "method": request.method,
+            "query": {},
+            "type": request.type,
+            "url": request.href,
+            "headers": {
+              "authorization": "OBFUSCATE"
+            }
           },
           "response": {
             "status": response.status,
