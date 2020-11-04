@@ -6,13 +6,15 @@ function getOpts(config) {
   const opts = {};
   opts.name = config.name || "mw-logger";
   opts.recordIp = config.recordIp || false;
+  opts.recordHeaders = config.recordHeaders || false;
   
   return {
     "loggerOpts": {
       "name": opts.name
     },
     "mwOpts": {
-      "recordIp": opts.recordIp
+      "recordIp": opts.recordIp,
+      "recordHeaders": opts.recordHeaders
     }
   };
 }

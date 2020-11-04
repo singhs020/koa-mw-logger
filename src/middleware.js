@@ -1,7 +1,17 @@
 const {"v4": uuid} = require("uuid");
 
+const headersToObfuscate = [
+  "authorization",
+  "x-apigateway-context",
+  "x-apigateway-event",
+  "x-forwarded-for"
+];
+
 function getReqId(headers) {
-  return headers["x-request-id"] || headers["x-amzn-RequestId"] || headers["requestId"] || uuid();
+  return headers["x-request-id"] || 
+  headers["x-amzn-RequestId"] || 
+  headers["requestId"] ||
+  uuid();
 }
 
 function wrapObj(reqId, data = {}) {
@@ -42,11 +52,13 @@ function logCompletion(logger, reqInfo, isError = false) {
 }
 
 function obfuscateHeaders(headers = {}) {
-  if(headers.authorization) {
-    return Object.assign({}, headers, {"authorization": "OBFUSCATE"});
-  }
+  const obfuscateObj = {};
 
-  return headers;
+  headersToObfuscate.forEach(key => {
+    if(headers[key]) obfuscateObj[key] = "OBFUSCATE";
+  });
+
+  return Object.assign({}, headers, obfuscateObj);
 }
 
 function getReqLog(req, mwOpts) {
