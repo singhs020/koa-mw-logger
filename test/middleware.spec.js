@@ -14,7 +14,7 @@ const logger = {
   "error": spy()
 };
 const mw = createLoggerMw(logger);
-const mwWithOpts = createLoggerMw(logger, {"recordIp": true});
+const mwWithOpts = createLoggerMw(logger, {"recordIp": true, "recordHeaders": true});
 const next = stub().resolves();
 const nextError = stub().rejects({"message": "Test"});
 const request = {
@@ -64,7 +64,7 @@ describe("The Middleware", () => {
             "query": {},
             "type": request.type,
             "url": request.href,
-            "headers": {}
+            "headers": "Header Recording is not enabled"
           },
           "response": {
             "status": response.status,
@@ -100,7 +100,7 @@ describe("The Middleware", () => {
             "query": {},
             "type": request.type,
             "url": request.href,
-            "headers": {}
+            "headers": "Header Recording is not enabled"
           },
           "response": {
             "status": response.status,
@@ -142,7 +142,7 @@ describe("The Middleware", () => {
             "query": {},
             "type": request.type,
             "url": request.href,
-            "headers": {}
+            "headers": "Header Recording is not enabled"
           },
           "response": {
             "status": response.status,

@@ -68,7 +68,7 @@ function getReqLog(req, mwOpts) {
     "query": req.query || {},
     "type": req.type,
     "ip": mwOpts.recordIp === true ? req.ip : "Ip recording is not enabled",
-    "headers": obfuscateHeaders(req.headers)
+    "headers": mwOpts.recordHeaders === true ? obfuscateHeaders(req.headers) : "Header Recording is not enabled"
   };
 }
 
