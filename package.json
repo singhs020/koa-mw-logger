@@ -1,6 +1,6 @@
 {
   "name": "koa-mw-logger",
-  "version": "1.4.9",
+  "version": "1.4.10",
   "description": "Koa middleware for logging",
   "main": "src/index.js",
   "scripts": {
