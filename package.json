@@ -28,17 +28,17 @@
   "homepage": "https://github.com/singhs020/koa-mw-logger#readme",
   "dependencies": {
     "koa": "^2.13.4",
-    "pino": "^6.13.4",
+    "pino": "^7.6.3",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "chai": "^4.3.0",
+    "chai": "^4.3.4",
     "gulp": "^4.0.2",
     "gulp-eslint": "^6.0.0",
     "gulp-shell": "^0.8.0",
-    "mocha": "^8.3.0",
+    "mocha": "^9.1.3",
     "nyc": "^15.1.0",
     "proxyquire": "^2.1.3",
-    "sinon": "^9.2.4"
+    "sinon": "^12.0.1"
   }
 }

@@ -1,5 +1,5 @@
 import { DefaultState, Middleware } from "koa";
-import { Logger as PinoLogger } from "pino";
+import { Logger } from "pino";
 
 interface IConfig {
   name?: string;
