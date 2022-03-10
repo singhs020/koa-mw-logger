@@ -28,7 +28,7 @@
   "homepage": "https://github.com/singhs020/koa-mw-logger#readme",
   "dependencies": {
     "koa": "^2.13.4",
-    "pino": "^7.8.0",
+    "pino": "^7.8.1",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
