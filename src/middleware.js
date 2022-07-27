@@ -94,6 +94,14 @@ function addCustomLogCtx(ctx, obj) {
   };
 }
 
+function parseJsonString(str) {
+  try {
+      return JSON.parse(str);
+  } catch (e) {
+      return null;
+  }
+}
+
 function createMiddleware(logger, mwOpts = {}) {
   return async(ctx, next) => {
     const reqId = getReqId(ctx.headers);
@@ -115,6 +123,13 @@ function createMiddleware(logger, mwOpts = {}) {
       // add error details if request is a bad request (HTTP Status 400)
       if (ctx.status === 400) {
         ctx.reqInfo.error = ctx.body;
+      }
+
+      const body = typeof ctx.body === "string" ? parseJsonString(ctx.body) : null;
+      // catch Graphql errors in case of partial errors
+      if (body && Array.isArray(body.errors)) {
+        ctx.reqInfo.error = {errors: body.errors};
+        isError = true;
       }
     } catch(err) {
       isError = true;

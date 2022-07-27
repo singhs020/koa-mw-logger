@@ -60,5 +60,8 @@ const app = Koa();
 app.use(getLogger(config));
 ```
 
+## Graphql Partial Errors
+If you are using the middleware with a Graphql server implemented using Koa, the partial errors from resolvers are also logged by this middleware. The response in case of the partial error is returned as 200 with errors in the body for a graphql API. The middleware will look for a key `errors` in the response and will log it in `error` object.
+
 ## Support or Contact
 Having trouble with koa-mw-logger or have any questions? Please raise an issue.
