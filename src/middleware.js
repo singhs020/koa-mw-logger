@@ -128,8 +128,8 @@ function createMiddleware(logger, mwOpts = {}) {
       const body = typeof ctx.body === "string" ? parseJsonString(ctx.body) : null;
       // catch Graphql errors in case of partial errors
       if (body && Array.isArray(body.errors)) {
-        ctx.reqInfo.isGraphQLError = true;
-        ctx.reqInfo.error = {errors: body.errors}
+        ctx.reqInfo.error = {errors: body.errors};
+        isError = true;
       }
     } catch(err) {
       isError = true;
