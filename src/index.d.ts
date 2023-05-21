@@ -5,6 +5,7 @@ interface IConfig {
   name?: string;
   recordIp?: boolean;
   recordHeaders?: boolean;
+  excludePaths?: string[];
 }
 
 export type Logger = NativeLogger;

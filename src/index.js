@@ -14,7 +14,8 @@ function getOpts(config) {
     },
     "mwOpts": {
       "recordIp": opts.recordIp,
-      "recordHeaders": opts.recordHeaders
+      "recordHeaders": opts.recordHeaders,
+      "excludePaths": config.excludePaths
     }
   };
 }
