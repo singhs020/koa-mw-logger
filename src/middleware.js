@@ -127,14 +127,14 @@ function createMiddleware(logger, mwOpts = {}) {
       await next();
 
       // add error details if request is a bad request (HTTP Status 400)
-      if (ctx.status === 400) {
+      if ((ctx.status/100) !== 2) {
         ctx.reqInfo.error = ctx.body;
       }
 
       const body =
         typeof ctx.body === "string" ? parseJsonString(ctx.body) : null;
       // catch Graphql errors in case of partial errors
-      if (body && Array.isArray(body.errors)) {
+      if (body && (Array.isArray(body.errors) || Array.isArray(body.error))) {
         ctx.reqInfo.error = { errors: body.errors };
         isError = true;
       }
